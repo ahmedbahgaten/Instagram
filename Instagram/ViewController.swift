@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import Firebase
 class ViewController: UIViewController {
     let plusButtonPhoto: UIButton = {
         let button = UIButton(type: .system)
@@ -21,33 +21,68 @@ class ViewController: UIViewController {
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
         button.setTitleColor(.white, for: .normal)
         button.setTitle("SignUp", for: .normal)
+        button.addTarget(self, action: #selector(handleSignUp), for: .touchUpInside)
+        button.isEnabled = false
         return button
     }()
+    @objc func handleSignUp() {
+        guard let email = emailTextField.text , email.isEmpty == false  else {return}
+        guard let username = usernameTextField.text , username.isEmpty == false  else {return}
+        guard let password = passwordTextField.text , password.isEmpty == false  else {return}
+        
+        Auth.auth().createUser(withEmail: email, password: password) { (user , error) in
+            if let err = error {
+                print("Failed to create a user",err)
+                return
+            }
+            print("Successfully created")
+            
+        }
+    }
+    
+    
     let emailTextField:UITextField = {
         let tf = UITextField()
         tf.placeholder = "Email"
         tf.backgroundColor = UIColor(white: 0, alpha: 0.03)
         tf.borderStyle = .roundedRect
         tf.font = UIFont.systemFont(ofSize: 14)
+        tf.addTarget(self, action: #selector(handleTextInputChange), for: .editingChanged)
         return tf
     }()
+    @objc func handleTextInputChange() {
+        let isFormValid = emailTextField.text!.count > 0 && usernameTextField.text!.count > 0 && passwordTextField.text!.count > 0
+            if isFormValid {
+                signUpButton.isEnabled = true
+                signUpButton.backgroundColor = UIColor.rgb(red: 17, green: 154, blue: 237)
+                
+            }
+            else {
+                signUpButton.isEnabled = false
+                signUpButton.backgroundColor = UIColor.rgb(red: 149, green: 204, blue: 244)
+            }
+        }
+       
+    
     let usernameTextField:UITextField = {
-          let tf = UITextField()
-          tf.placeholder = "Username"
-          tf.backgroundColor = UIColor(white: 0, alpha: 0.03)
-          tf.borderStyle = .roundedRect
-          tf.font = UIFont.systemFont(ofSize: 14)
-          return tf
-      }()
+        let tf = UITextField()
+        tf.placeholder = "Username"
+        tf.backgroundColor = UIColor(white: 0, alpha: 0.03)
+        tf.borderStyle = .roundedRect
+        tf.font = UIFont.systemFont(ofSize: 14)
+        tf.addTarget(self, action: #selector(handleTextInputChange), for: .editingChanged)
+        return tf
+    }()
     let passwordTextField:UITextField = {
-          let tf = UITextField()
-          tf.placeholder = "Password"
+        let tf = UITextField()
+        tf.placeholder = "Password"
         tf.isSecureTextEntry = true
-          tf.backgroundColor = UIColor(white: 0, alpha: 0.03)
-          tf.borderStyle = .roundedRect
-          tf.font = UIFont.systemFont(ofSize: 14)
-          return tf
-      }()
+        tf.backgroundColor = UIColor(white: 0, alpha: 0.03)
+        tf.borderStyle = .roundedRect
+        tf.font = UIFont.systemFont(ofSize: 14)
+        tf.addTarget(self, action: #selector(handleTextInputChange), for: .editingChanged)
+        return tf
+    }()
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(plusButtonPhoto)
@@ -68,8 +103,8 @@ extension UIView {
     func anchor(top:NSLayoutYAxisAnchor? ,left:NSLayoutXAxisAnchor?,right:NSLayoutXAxisAnchor?,bottom:NSLayoutYAxisAnchor?,paddingBottom:CGFloat,paddingLeft:CGFloat,paddingRight:CGFloat, paddingTop :CGFloat,height:CGFloat,width:CGFloat ) {
         self.translatesAutoresizingMaskIntoConstraints = false
         if let top = top {
-        self.topAnchor.constraint(equalTo: top, constant: paddingTop).isActive = true
-    }
+            self.topAnchor.constraint(equalTo: top, constant: paddingTop).isActive = true
+        }
         if let left = left {
             self.leftAnchor.constraint(equalTo: left, constant: paddingLeft).isActive = true
         }
@@ -84,8 +119,8 @@ extension UIView {
         }
         if width != 0 {
             widthAnchor.constraint(equalToConstant: width).isActive = true
+        }
     }
-}
 }
 
 

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -16,6 +16,8 @@
 		E216EDA423C9BBEA00DD4DF5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E216EDA223C9BBEA00DD4DF5 /* LaunchScreen.storyboard */; };
 		E233F13C23C9EB70003EAC90 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E233F13B23C9EB70003EAC90 /* Extension.swift */; };
 		E233F13E23CA06C4003EAC90 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E233F13D23CA06C4003EAC90 /* GoogleService-Info.plist */; };
+		E233F14223CC812C003EAC90 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E233F14123CC812C003EAC90 /* MainTabBarController.swift */; };
+		E233F14423CC8282003EAC90 /* UserProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E233F14323CC8282003EAC90 /* UserProfileController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,8 @@
 		E216EDA523C9BBEA00DD4DF5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E233F13B23C9EB70003EAC90 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		E233F13D23CA06C4003EAC90 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E233F14123CC812C003EAC90 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		E233F14323CC8282003EAC90 /* UserProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,7 +64,6 @@
 				3B1DF1F05AB5A26BD24DE7EC /* Pods-Instagram.debug.xcconfig */,
 				4DE806630F0FE70759DEFBE9 /* Pods-Instagram.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -89,6 +92,8 @@
 				E216ED9723C9BBE900DD4DF5 /* AppDelegate.swift */,
 				E216ED9923C9BBE900DD4DF5 /* SceneDelegate.swift */,
 				E216ED9B23C9BBE900DD4DF5 /* ViewController.swift */,
+				E233F14123CC812C003EAC90 /* MainTabBarController.swift */,
+				E233F14323CC8282003EAC90 /* UserProfileController.swift */,
 				E216ED9D23C9BBE900DD4DF5 /* Main.storyboard */,
 				E216EDA023C9BBEA00DD4DF5 /* Assets.xcassets */,
 				E216EDA223C9BBEA00DD4DF5 /* LaunchScreen.storyboard */,
@@ -224,6 +229,8 @@
 			files = (
 				E233F13C23C9EB70003EAC90 /* Extension.swift in Sources */,
 				E216ED9C23C9BBE900DD4DF5 /* ViewController.swift in Sources */,
+				E233F14423CC8282003EAC90 /* UserProfileController.swift in Sources */,
+				E233F14223CC812C003EAC90 /* MainTabBarController.swift in Sources */,
 				E216ED9823C9BBE900DD4DF5 /* AppDelegate.swift in Sources */,
 				E216ED9A23C9BBE900DD4DF5 /* SceneDelegate.swift in Sources */,
 			);

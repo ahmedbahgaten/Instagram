@@ -18,6 +18,7 @@
 		E233F13E23CA06C4003EAC90 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E233F13D23CA06C4003EAC90 /* GoogleService-Info.plist */; };
 		E233F14223CC812C003EAC90 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E233F14123CC812C003EAC90 /* MainTabBarController.swift */; };
 		E233F14423CC8282003EAC90 /* UserProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E233F14323CC8282003EAC90 /* UserProfileController.swift */; };
+		E233F14723CCBD5E003EAC90 /* UserProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E233F14623CCBD5E003EAC90 /* UserProfileHeader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		E233F13D23CA06C4003EAC90 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E233F14123CC812C003EAC90 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		E233F14323CC8282003EAC90 /* UserProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileController.swift; sourceTree = "<group>"; };
+		E233F14623CCBD5E003EAC90 /* UserProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileHeader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,7 +95,6 @@
 				E216ED9923C9BBE900DD4DF5 /* SceneDelegate.swift */,
 				E216ED9B23C9BBE900DD4DF5 /* ViewController.swift */,
 				E233F14123CC812C003EAC90 /* MainTabBarController.swift */,
-				E233F14323CC8282003EAC90 /* UserProfileController.swift */,
 				E216ED9D23C9BBE900DD4DF5 /* Main.storyboard */,
 				E216EDA023C9BBEA00DD4DF5 /* Assets.xcassets */,
 				E216EDA223C9BBEA00DD4DF5 /* LaunchScreen.storyboard */,
@@ -107,8 +108,18 @@
 			isa = PBXGroup;
 			children = (
 				E233F13B23C9EB70003EAC90 /* Extension.swift */,
+				E233F14523CCBD4A003EAC90 /* UserProfile */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		E233F14523CCBD4A003EAC90 /* UserProfile */ = {
+			isa = PBXGroup;
+			children = (
+				E233F14623CCBD5E003EAC90 /* UserProfileHeader.swift */,
+				E233F14323CC8282003EAC90 /* UserProfileController.swift */,
+			);
+			path = UserProfile;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -228,6 +239,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E233F13C23C9EB70003EAC90 /* Extension.swift in Sources */,
+				E233F14723CCBD5E003EAC90 /* UserProfileHeader.swift in Sources */,
 				E216ED9C23C9BBE900DD4DF5 /* ViewController.swift in Sources */,
 				E233F14423CC8282003EAC90 /* UserProfileController.swift in Sources */,
 				E233F14223CC812C003EAC90 /* MainTabBarController.swift in Sources */,

@@ -12,7 +12,7 @@ import UIKit
 class MainTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        let layout = UICollectionViewLayout()
+        let layout = UICollectionViewFlowLayout()
         let userProfileController = UserProfileController(collectionViewLayout: layout)
         let navController = UINavigationController(rootViewController: userProfileController)
         navController.tabBarItem.selectedImage = #imageLiteral(resourceName: "profile_selected")

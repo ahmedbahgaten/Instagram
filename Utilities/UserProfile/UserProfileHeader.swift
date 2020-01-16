@@ -16,7 +16,6 @@ class UserProfileHeader:UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame:frame)
-        backgroundColor = .blue
         addSubview(profileImageView)
         profileImageView.anchor(top: self.topAnchor, left: self.leftAnchor, right: nil, bottom: nil, paddingBottom: 0, paddingLeft: 12, paddingRight: 0, paddingTop: 12, height: 80, width: 80)
         profileImageView.layer.cornerRadius = 80/2

@@ -8,7 +8,7 @@
 
 import UIKit
 import Firebase
-class ViewController: UIViewController , UIImagePickerControllerDelegate,UINavigationControllerDelegate{
+class signUpController: UIViewController , UIImagePickerControllerDelegate,UINavigationControllerDelegate{
     let plusButtonPhoto: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(#imageLiteral(resourceName: "plus_photo").withRenderingMode(.alwaysOriginal), for: .normal)
@@ -60,6 +60,7 @@ class ViewController: UIViewController , UIImagePickerControllerDelegate,UINavig
                 return
             }
             print("Successfully created")
+            
             guard let self = self else {return}
             guard let image = self.plusButtonPhoto.imageView?.image else {return}
             guard let uploadData = image.jpegData(compressionQuality: 0.3) else {return}
@@ -71,8 +72,8 @@ class ViewController: UIViewController , UIImagePickerControllerDelegate,UINavig
                 }
                 print("Successfully uploaded")
                 guard let userID = Auth.auth().currentUser?.uid else {return}
-                let storageRef = Storage.storage().reference().child("profile_images").child(filename)
-                storageRef.downloadURL { (url, err) in
+                let storageImageRef = Storage.storage().reference().child("profile_images").child(filename)
+                storageImageRef.downloadURL { (url, err) in
                     if let profileImageURL = url?.absoluteString {
                         let dictionaryValues = ["username":username,"profileImageURL":profileImageURL]
                         let values = [userID:dictionaryValues]
@@ -136,6 +137,7 @@ let passwordTextField:UITextField = {
 }()
 override func viewDidLoad() {
     super.viewDidLoad()
+    view.backgroundColor = .white
     view.addSubview(plusButtonPhoto)
     plusButtonPhoto.anchor(top: view.topAnchor, left: nil, right: nil, bottom: nil, paddingBottom: 0, paddingLeft: 0, paddingRight: 0, paddingTop: 40, height: 140, width: 140)
     plusButtonPhoto.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true

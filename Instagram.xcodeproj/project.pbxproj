@@ -10,7 +10,7 @@
 		72C0CFBEE9145E7D138A01FC /* Pods_Instagram.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EA3196E012B312241CDBA8D /* Pods_Instagram.framework */; };
 		E216ED9823C9BBE900DD4DF5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E216ED9723C9BBE900DD4DF5 /* AppDelegate.swift */; };
 		E216ED9A23C9BBE900DD4DF5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E216ED9923C9BBE900DD4DF5 /* SceneDelegate.swift */; };
-		E216ED9C23C9BBE900DD4DF5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E216ED9B23C9BBE900DD4DF5 /* ViewController.swift */; };
+		E216ED9C23C9BBE900DD4DF5 /* signUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E216ED9B23C9BBE900DD4DF5 /* signUpController.swift */; };
 		E216ED9F23C9BBE900DD4DF5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E216ED9D23C9BBE900DD4DF5 /* Main.storyboard */; };
 		E216EDA123C9BBEA00DD4DF5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E216EDA023C9BBEA00DD4DF5 /* Assets.xcassets */; };
 		E216EDA423C9BBEA00DD4DF5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E216EDA223C9BBEA00DD4DF5 /* LaunchScreen.storyboard */; };
@@ -19,6 +19,7 @@
 		E233F14223CC812C003EAC90 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E233F14123CC812C003EAC90 /* MainTabBarController.swift */; };
 		E233F14423CC8282003EAC90 /* UserProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E233F14323CC8282003EAC90 /* UserProfileController.swift */; };
 		E233F14723CCBD5E003EAC90 /* UserProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E233F14623CCBD5E003EAC90 /* UserProfileHeader.swift */; };
+		E273198323D8C0090038C590 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E273198223D8C0090038C590 /* LoginController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,7 +29,7 @@
 		E216ED9423C9BBE900DD4DF5 /* Instagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Instagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E216ED9723C9BBE900DD4DF5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E216ED9923C9BBE900DD4DF5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		E216ED9B23C9BBE900DD4DF5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		E216ED9B23C9BBE900DD4DF5 /* signUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = signUpController.swift; sourceTree = "<group>"; };
 		E216ED9E23C9BBE900DD4DF5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E216EDA023C9BBEA00DD4DF5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E216EDA323C9BBEA00DD4DF5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -38,6 +39,7 @@
 		E233F14123CC812C003EAC90 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		E233F14323CC8282003EAC90 /* UserProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileController.swift; sourceTree = "<group>"; };
 		E233F14623CCBD5E003EAC90 /* UserProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileHeader.swift; sourceTree = "<group>"; };
+		E273198223D8C0090038C590 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,7 +74,6 @@
 		E216ED8B23C9BBE900DD4DF5 = {
 			isa = PBXGroup;
 			children = (
-				E233F13A23C9EB5D003EAC90 /* Utilities */,
 				E216ED9623C9BBE900DD4DF5 /* Instagram */,
 				E216ED9523C9BBE900DD4DF5 /* Products */,
 				B16EE1E99DBECB1E3EBC0533 /* Pods */,
@@ -91,9 +92,11 @@
 		E216ED9623C9BBE900DD4DF5 /* Instagram */ = {
 			isa = PBXGroup;
 			children = (
+				E233F13A23C9EB5D003EAC90 /* Utilities */,
+				E233F14523CCBD4A003EAC90 /* UserProfile */,
+				E273198123D8BFE80038C590 /* Login */,
 				E216ED9723C9BBE900DD4DF5 /* AppDelegate.swift */,
 				E216ED9923C9BBE900DD4DF5 /* SceneDelegate.swift */,
-				E216ED9B23C9BBE900DD4DF5 /* ViewController.swift */,
 				E233F14123CC812C003EAC90 /* MainTabBarController.swift */,
 				E216ED9D23C9BBE900DD4DF5 /* Main.storyboard */,
 				E216EDA023C9BBEA00DD4DF5 /* Assets.xcassets */,
@@ -108,7 +111,6 @@
 			isa = PBXGroup;
 			children = (
 				E233F13B23C9EB70003EAC90 /* Extension.swift */,
-				E233F14523CCBD4A003EAC90 /* UserProfile */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -120,6 +122,15 @@
 				E233F14323CC8282003EAC90 /* UserProfileController.swift */,
 			);
 			path = UserProfile;
+			sourceTree = "<group>";
+		};
+		E273198123D8BFE80038C590 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				E273198223D8C0090038C590 /* LoginController.swift */,
+				E216ED9B23C9BBE900DD4DF5 /* signUpController.swift */,
+			);
+			path = Login;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -240,9 +251,10 @@
 			files = (
 				E233F13C23C9EB70003EAC90 /* Extension.swift in Sources */,
 				E233F14723CCBD5E003EAC90 /* UserProfileHeader.swift in Sources */,
-				E216ED9C23C9BBE900DD4DF5 /* ViewController.swift in Sources */,
+				E216ED9C23C9BBE900DD4DF5 /* signUpController.swift in Sources */,
 				E233F14423CC8282003EAC90 /* UserProfileController.swift in Sources */,
 				E233F14223CC812C003EAC90 /* MainTabBarController.swift in Sources */,
+				E273198323D8C0090038C590 /* LoginController.swift in Sources */,
 				E216ED9823C9BBE900DD4DF5 /* AppDelegate.swift in Sources */,
 				E216ED9A23C9BBE900DD4DF5 /* SceneDelegate.swift in Sources */,
 			);

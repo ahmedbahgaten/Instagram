@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Firebase
 
 class MainTabBarController: UITabBarController {
     override func viewDidLoad() {
@@ -15,9 +16,15 @@ class MainTabBarController: UITabBarController {
         let layout = UICollectionViewFlowLayout()
         let userProfileController = UserProfileController(collectionViewLayout: layout)
         let navController = UINavigationController(rootViewController: userProfileController)
+        
+            if Auth.auth().currentUser == nil {
+                let loginController = LoginController()
+                navController.pushViewController(loginController, animated: true)
+            }
         navController.tabBarItem.selectedImage = #imageLiteral(resourceName: "profile_selected")
         navController.tabBarItem.image = #imageLiteral(resourceName: "profile_unselected")
         tabBar.tintColor = .black
         viewControllers = [navController,UIViewController()]
     }
 }
+

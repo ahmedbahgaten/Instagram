@@ -7,14 +7,17 @@
 //
 
 import UIKit
+import Firebase
 class LoginController:UIViewController {
-    let signUpButton:UIButton = {
+    let dontHaveAccountButton:UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Don't have an account? SignUp." , for: .normal)
-        button.addTarget(self, action: #selector(handleShowSignUp), for: .touchUpInside)
+        let attributedTitle = NSMutableAttributedString(string: "Don't have an account?", attributes: [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 14),NSAttributedString.Key.foregroundColor:UIColor.lightGray])
+        button.setAttributedTitle(attributedTitle, for: .normal)
+        attributedTitle.append(NSAttributedString(string: " Sign Up", attributes: [NSAttributedString.Key.font:UIFont.boldSystemFont(ofSize: 14),NSAttributedString.Key.foregroundColor:UIColor.rgb(red: 17, green: 154, blue: 237 )]))
+        button.addTarget(self, action: #selector(handleDontHaveAccount), for: .touchUpInside)
         return button
     }()
-    @objc func handleShowSignUp() {
+    @objc func handleDontHaveAccount() {
         let SignUpController = signUpController()
         navigationController?.pushViewController(SignUpController,animated:true)
     }
@@ -38,7 +41,7 @@ class LoginController:UIViewController {
         tf.backgroundColor = UIColor(white: 0, alpha: 0.03)
         tf.borderStyle = .roundedRect
         tf.font = UIFont.systemFont(ofSize: 14)
-//        tf.addTarget(self, action: #selector(handleTextInputChange), for: .editingChanged)
+        tf.addTarget(self, action: #selector(handleTextInputChange), for: .editingChanged)
         return tf
     }()
     let passwordTextField:UITextField = {
@@ -48,9 +51,21 @@ class LoginController:UIViewController {
         tf.backgroundColor = UIColor(white: 0, alpha: 0.03)
         tf.borderStyle = .roundedRect
         tf.font = UIFont.systemFont(ofSize: 14)
-//        tf.addTarget(self, action: #selector(handleTextInputChange), for: .editingChanged)
+        tf.addTarget(self, action: #selector(handleTextInputChange), for: .editingChanged)
         return tf
     }()
+    @objc func handleTextInputChange() {
+        let isFormValid = emailTextField.text!.count > 0 && passwordTextField.text!.count > 0
+        if isFormValid {
+            loginButton.isEnabled = true
+            loginButton.backgroundColor = UIColor.rgb(red: 17, green: 154, blue: 237)
+            
+        }
+        else {
+            loginButton.isEnabled = false
+            loginButton.backgroundColor = UIColor.rgb(red: 149, green: 204, blue: 244)
+        }
+    }
     let loginButton :UIButton = {
           let button = UIButton(type: .system)
           button.backgroundColor = UIColor.rgb(red: 149, green: 204, blue: 244)
@@ -58,10 +73,25 @@ class LoginController:UIViewController {
           button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
           button.setTitleColor(.white, for: .normal)
           button.setTitle("Login", for: .normal)
-//          button.addTarget(self, action: #selector(handleSignUp), for: .touchUpInside)
+          button.addTarget(self, action: #selector(handleLogIn), for: .touchUpInside)
           button.isEnabled = false
           return button
       }()
+    @objc func handleLogIn() {
+        guard let email = emailTextField.text else {return}
+        guard let password = passwordTextField.text else {return}
+        Auth.auth().signIn(withEmail: email, password: password) { (user, err) in
+            if let err = err {
+                print ("Failed to singin",err)
+                return
+            }
+            print("Successfully logged in with user",Auth.auth().currentUser?.uid ?? "")
+            
+            guard let mainTabBarController = UIApplication.shared.keyWindow?.rootViewController as? MainTabBarController else {return}
+            mainTabBarController.setupViewControllers()
+            self.navigationController?.popViewController(animated: true)
+        }
+    }
 
     
     override func viewDidLoad() {
@@ -69,10 +99,10 @@ class LoginController:UIViewController {
         view.backgroundColor = .white
         self.navigationController?.navigationBar.isHidden = true
         self.tabBarController?.tabBar.isHidden = true
-        view.addSubview(signUpButton)
+        view.addSubview(dontHaveAccountButton)
         view.addSubview(logoContainerView)
         
-        signUpButton.anchor(top: nil, left: view.leftAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, paddingBottom: -10, paddingLeft: 0, paddingRight: 0, paddingTop: 0, height: 0, width: 0)
+        dontHaveAccountButton.anchor(top: nil, left: view.leftAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, paddingBottom: -10, paddingLeft: 0, paddingRight: 0, paddingTop: 0, height: 0, width: 0)
         logoContainerView .anchor(top: view.topAnchor, left: view.leftAnchor, right: view.rightAnchor, bottom: nil, paddingBottom: 0, paddingLeft: 0, paddingRight: 0, paddingTop: 0, height: 150, width: 0)
         setupInputFields()
     }

@@ -29,6 +29,9 @@ class UserProfileController:UICollectionViewController,UICollectionViewDelegateF
         let logOutAction = UIAlertAction(title: "Log Out", style: .destructive) { (_) in
             do {
                 try Auth.auth().signOut()
+                let loginViewController = LoginController()
+                self.navigationController?.pushViewController(loginViewController, animated: true)
+                
             } catch let signOutError {
                 print("Failed to sign out",signOutError)
             }
@@ -71,7 +74,6 @@ class UserProfileController:UICollectionViewController,UICollectionViewDelegateF
         Database.database().reference().child("users").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
             print(snapshot.value ?? "")
             let dictionary = snapshot.value as? [String:Any]
-            //howa dah el object
             self.user = User(dictionary: dictionary ?? ["":""])
             
             self.navigationItem.title = self.user?.username

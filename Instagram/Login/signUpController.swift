@@ -26,6 +26,17 @@ class signUpController: UIViewController , UIImagePickerControllerDelegate,UINav
         button.isEnabled = false
         return button
     }()
+    let alreadyHaveAccountButton:UIButton = {
+        let button = UIButton(type: .system)
+        let attributedTitle = NSMutableAttributedString(string: "Already have an account? ", attributes: [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 14),NSAttributedString.Key.foregroundColor:UIColor.lightGray])
+        button.setAttributedTitle(attributedTitle, for: .normal)
+        attributedTitle.append(NSAttributedString(string: " Sign in", attributes: [NSAttributedString.Key.font:UIFont.boldSystemFont(ofSize: 14),NSAttributedString.Key.foregroundColor:UIColor.rgb(red: 17, green: 154, blue: 237 )]))
+        button.addTarget(self, action: #selector(handleAlreadyHaveAccount), for: .touchUpInside)
+        return button
+    }()
+    @objc func handleAlreadyHaveAccount() {
+        navigationController?.popViewController(animated: true)
+    }
     @objc func handlePlusPhoto() {
         let imagePickerController = UIImagePickerController()
         imagePickerController.delegate = self
@@ -83,6 +94,7 @@ class signUpController: UIViewController , UIImagePickerControllerDelegate,UINav
                                 return
                             }
                             print("Successfully created a user")
+                            self.navigationController?.popViewController(animated: true)
                         }
                     }
                 }
@@ -139,9 +151,12 @@ override func viewDidLoad() {
     super.viewDidLoad()
     view.backgroundColor = .white
     view.addSubview(plusButtonPhoto)
+    view.addSubview(alreadyHaveAccountButton)
     plusButtonPhoto.anchor(top: view.topAnchor, left: nil, right: nil, bottom: nil, paddingBottom: 0, paddingLeft: 0, paddingRight: 0, paddingTop: 40, height: 140, width: 140)
     plusButtonPhoto.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+     alreadyHaveAccountButton.anchor(top: nil, left: view.leftAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, paddingBottom: -10, paddingLeft: 0, paddingRight: 0, paddingTop: 0, height: 0, width: 0)
     setupInputFields()
+    
 }
 fileprivate func setupInputFields() {
     let stackView = UIStackView(arrangedSubviews: [emailTextField,usernameTextField,passwordTextField,signUpButton])

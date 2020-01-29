@@ -101,6 +101,7 @@ class LoginController:UIViewController {
         self.tabBarController?.tabBar.isHidden = true
         view.addSubview(dontHaveAccountButton)
         view.addSubview(logoContainerView)
+        hideKeyboardWhenTappedAround()
         
         dontHaveAccountButton.anchor(top: nil, left: view.leftAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, paddingBottom: -10, paddingLeft: 0, paddingRight: 0, paddingTop: 0, height: 0, width: 0)
         logoContainerView .anchor(top: view.topAnchor, left: view.leftAnchor, right: view.rightAnchor, bottom: nil, paddingBottom: 0, paddingLeft: 0, paddingRight: 0, paddingTop: 0, height: 150, width: 0)
@@ -117,4 +118,18 @@ class LoginController:UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
+}
+extension UIViewController {
+    
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
+    
 }

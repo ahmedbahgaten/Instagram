@@ -94,6 +94,11 @@ class signUpController: UIViewController , UIImagePickerControllerDelegate,UINav
                                 return
                             }
                             print("Successfully created a user")
+                            do {
+                                try Auth.auth().signOut()
+                            } catch {
+                                
+                            }
                             self.navigationController?.popViewController(animated: true)
                         }
                     }
@@ -149,6 +154,7 @@ let passwordTextField:UITextField = {
 }()
 override func viewDidLoad() {
     super.viewDidLoad()
+    hideKeyboardWhenTappedAround()
     view.backgroundColor = .white
     view.addSubview(plusButtonPhoto)
     view.addSubview(alreadyHaveAccountButton)

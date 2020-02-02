@@ -19,6 +19,7 @@
 		E233F14223CC812C003EAC90 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E233F14123CC812C003EAC90 /* MainTabBarController.swift */; };
 		E233F14423CC8282003EAC90 /* UserProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E233F14323CC8282003EAC90 /* UserProfileController.swift */; };
 		E233F14723CCBD5E003EAC90 /* UserProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E233F14623CCBD5E003EAC90 /* UserProfileHeader.swift */; };
+		E250DA8823E2315A00FC97C7 /* PhotoSelectorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E250DA8723E2315A00FC97C7 /* PhotoSelectorController.swift */; };
 		E273198323D8C0090038C590 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E273198223D8C0090038C590 /* LoginController.swift */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +40,7 @@
 		E233F14123CC812C003EAC90 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		E233F14323CC8282003EAC90 /* UserProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileController.swift; sourceTree = "<group>"; };
 		E233F14623CCBD5E003EAC90 /* UserProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileHeader.swift; sourceTree = "<group>"; };
+		E250DA8723E2315A00FC97C7 /* PhotoSelectorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSelectorController.swift; sourceTree = "<group>"; };
 		E273198223D8C0090038C590 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -92,6 +94,7 @@
 		E216ED9623C9BBE900DD4DF5 /* Instagram */ = {
 			isa = PBXGroup;
 			children = (
+				E250DA8623E2313200FC97C7 /* addPhoto */,
 				E233F13A23C9EB5D003EAC90 /* Utilities */,
 				E233F14523CCBD4A003EAC90 /* UserProfile */,
 				E273198123D8BFE80038C590 /* Login */,
@@ -122,6 +125,14 @@
 				E233F14323CC8282003EAC90 /* UserProfileController.swift */,
 			);
 			path = UserProfile;
+			sourceTree = "<group>";
+		};
+		E250DA8623E2313200FC97C7 /* addPhoto */ = {
+			isa = PBXGroup;
+			children = (
+				E250DA8723E2315A00FC97C7 /* PhotoSelectorController.swift */,
+			);
+			path = addPhoto;
 			sourceTree = "<group>";
 		};
 		E273198123D8BFE80038C590 /* Login */ = {
@@ -252,6 +263,7 @@
 				E233F13C23C9EB70003EAC90 /* Extension.swift in Sources */,
 				E233F14723CCBD5E003EAC90 /* UserProfileHeader.swift in Sources */,
 				E216ED9C23C9BBE900DD4DF5 /* signUpController.swift in Sources */,
+				E250DA8823E2315A00FC97C7 /* PhotoSelectorController.swift in Sources */,
 				E233F14423CC8282003EAC90 /* UserProfileController.swift in Sources */,
 				E233F14223CC812C003EAC90 /* MainTabBarController.swift in Sources */,
 				E273198323D8C0090038C590 /* LoginController.swift in Sources */,

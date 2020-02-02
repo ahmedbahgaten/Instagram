@@ -7,16 +7,39 @@
 //
 
 import UIKit
-
+import Photos
 class PhotoSelectorController:UICollectionViewController,UICollectionViewDelegateFlowLayout {
     let headerID = "headerID"
     let cellID = "cellID"
+    var images = [UIImage]()
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView.backgroundColor = .yellow
+        collectionView.backgroundColor = .white
         setupNavigationButtons()
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: cellID)
+        collectionView.register(PhotoSelectorCell.self, forCellWithReuseIdentifier: cellID)
         collectionView.register(UICollectionViewCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerID)
+        fetchPhotos()
+    }
+    fileprivate func fetchPhotos() {
+        let fetchOptions = PHFetchOptions()
+        let sortDescriptors = NSSortDescriptor(key: "creationDate", ascending: false)
+        fetchOptions.sortDescriptors = [sortDescriptors]
+        fetchOptions.fetchLimit = 10
+        let allPhotos = PHAsset.fetchAssets(with: .image, options: fetchOptions)
+        allPhotos.enumerateObjects { (asset, count, stop) in
+            let imageManager = PHImageManager.default()
+            let targetSize = CGSize(width: 350, height: 350)
+            let options = PHImageRequestOptions()
+            options.isSynchronous = true
+            imageManager.requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFit, options: options) { (image, info) in
+                if let image = image {
+                    self.images.append(image)
+                }
+                if count == allPhotos.count - 1 {
+                    self.collectionView.reloadData()
+                }
+            }
+        }
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         let width = view.frame.width
@@ -32,11 +55,11 @@ class PhotoSelectorController:UICollectionViewController,UICollectionViewDelegat
         return UIEdgeInsets(top: 2, left: 0, bottom: 0, right: 0)
     }
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        5
+        images.count
     }
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath)
-        cell.backgroundColor = .blue
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! PhotoSelectorCell
+        cell.photoImageView.image = images[indexPath.row]
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

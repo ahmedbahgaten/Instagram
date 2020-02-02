@@ -21,6 +21,7 @@
 		E233F14723CCBD5E003EAC90 /* UserProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E233F14623CCBD5E003EAC90 /* UserProfileHeader.swift */; };
 		E250DA8823E2315A00FC97C7 /* PhotoSelectorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E250DA8723E2315A00FC97C7 /* PhotoSelectorController.swift */; };
 		E273198323D8C0090038C590 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E273198223D8C0090038C590 /* LoginController.swift */; };
+		E2DDD5F023E73A9D005732E0 /* PhotoSelectorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DDD5EF23E73A9D005732E0 /* PhotoSelectorCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		E233F14623CCBD5E003EAC90 /* UserProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileHeader.swift; sourceTree = "<group>"; };
 		E250DA8723E2315A00FC97C7 /* PhotoSelectorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSelectorController.swift; sourceTree = "<group>"; };
 		E273198223D8C0090038C590 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
+		E2DDD5EF23E73A9D005732E0 /* PhotoSelectorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSelectorCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +133,7 @@
 			isa = PBXGroup;
 			children = (
 				E250DA8723E2315A00FC97C7 /* PhotoSelectorController.swift */,
+				E2DDD5EF23E73A9D005732E0 /* PhotoSelectorCell.swift */,
 			);
 			path = addPhoto;
 			sourceTree = "<group>";
@@ -269,6 +272,7 @@
 				E273198323D8C0090038C590 /* LoginController.swift in Sources */,
 				E216ED9823C9BBE900DD4DF5 /* AppDelegate.swift in Sources */,
 				E216ED9A23C9BBE900DD4DF5 /* SceneDelegate.swift in Sources */,
+				E2DDD5F023E73A9D005732E0 /* PhotoSelectorCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

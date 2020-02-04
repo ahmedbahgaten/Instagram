@@ -89,7 +89,7 @@ class LoginController:UIViewController {
             
             guard let mainTabBarController = UIApplication.shared.keyWindow?.rootViewController as? MainTabBarController else {return}
             mainTabBarController.setupViewControllers()
-            self.navigationController?.popViewController(animated: true)
+            self.dismiss(animated: true, completion: nil)
         }
     }
 
@@ -103,8 +103,8 @@ class LoginController:UIViewController {
         view.addSubview(logoContainerView)
         hideKeyboardWhenTappedAround()
         
-        dontHaveAccountButton.anchor(top: nil, left: view.leftAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, paddingBottom: -10, paddingLeft: 0, paddingRight: 0, paddingTop: 0, height: 0, width: 0)
-        logoContainerView .anchor(top: view.topAnchor, left: view.leftAnchor, right: view.rightAnchor, bottom: nil, paddingBottom: 0, paddingLeft: 0, paddingRight: 0, paddingTop: 0, height: 150, width: 0)
+        dontHaveAccountButton.setAnchor(top: nil, left: view.leftAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, paddingBottom: 10, paddingLeft: 0, paddingRight: 0, paddingTop: 0, height: 0, width: 0)
+        logoContainerView .setAnchor(top: view.topAnchor, left: view.leftAnchor, right: view.rightAnchor, bottom: nil, paddingBottom: 0, paddingLeft: 0, paddingRight: 0, paddingTop: 0, height: 150, width: 0)
         setupInputFields()
     }
     fileprivate func setupInputFields() {
@@ -113,7 +113,7 @@ class LoginController:UIViewController {
         stackView.spacing = 10
         stackView.distribution = .fillEqually
         view.addSubview(stackView)
-        stackView.anchor(top: logoContainerView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, bottom: nil, paddingBottom: 0, paddingLeft: 40, paddingRight: 40, paddingTop: 40, height: 140, width: 0)
+        stackView.setAnchor(top: logoContainerView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, bottom: nil, paddingBottom: 0, paddingLeft: 40, paddingRight: 40, paddingTop: 40, height: 140, width: 0)
     }
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent

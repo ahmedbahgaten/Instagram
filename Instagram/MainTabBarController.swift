@@ -45,8 +45,16 @@ class MainTabBarController: UITabBarController,UITabBarControllerDelegate {
              userProfileNavController = UINavigationController(rootViewController: userProfileController)
             
             if Auth.auth().currentUser == nil {
+                print("No User")
+                DispatchQueue.main.async {
+                    
                 let loginController = LoginController()
-                userProfileNavController?.pushViewController(loginController, animated: true)
+                loginController.modalPresentationStyle = .fullScreen
+                let navController = UINavigationController(rootViewController: loginController)
+                    navController.modalPresentationStyle = .fullScreen
+                    self.present(navController, animated: true, completion: nil)
+            }
+//                return
             }
             userProfileNavController?.tabBarItem.selectedImage = #imageLiteral(resourceName: "profile_selected")
             userProfileNavController?.tabBarItem.image = #imageLiteral(resourceName: "profile_unselected")

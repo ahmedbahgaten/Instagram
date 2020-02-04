@@ -9,16 +9,33 @@
 import UIKit
 import Firebase
 class UserProfileController:UICollectionViewController,UICollectionViewDelegateFlowLayout {
+    var posts = [Post]()
     var user:User?
     let cellID = "collectionViewCell"
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView?.backgroundColor = .white
         collectionView?.register(UserProfileHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "headerId")
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: cellID)
-        fetchUser()
+        collectionView.register(UserProfilePhotoCell.self, forCellWithReuseIdentifier: cellID)
         setupLogOutButton()
-        
+        fetchUser()
+        fetchPosts()
+    }
+    fileprivate func fetchPosts() {
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        let ref = Database.database().reference().child("posts").child(uid)
+        ref.observeSingleEvent(of: .value, with: { (snapshot) in
+            print(uid)
+            guard let dictionaries = snapshot.value as? [String:Any] else {return}
+            dictionaries.forEach { (key,value) in
+                guard let dictionary = value as? [String:Any] else {return}
+                let post = Post(dictionary: dictionary)
+                self.posts.append(post)
+            }
+            self.collectionView.reloadData()
+        }) { (err) in
+            print("Failed to fetch posts",err.localizedDescription)
+        }
     }
     fileprivate func setupLogOutButton () {
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "gear"), style: .plain, target: self, action: #selector(handleLogOut))
@@ -42,7 +59,7 @@ class UserProfileController:UICollectionViewController,UICollectionViewDelegateF
         present(Alert,animated: true,completion: nil)
     }
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        7
+        return posts.count
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         1
@@ -55,8 +72,8 @@ class UserProfileController:UICollectionViewController,UICollectionViewDelegateF
         return CGSize(width: width, height: width)
     }
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath)
-        cell.backgroundColor = .purple
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! UserProfilePhotoCell
+        cell.post = posts[indexPath.row]
         return cell
     }
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -83,12 +100,4 @@ class UserProfileController:UICollectionViewController,UICollectionViewDelegateF
         }
     }
 }
-struct User {
-    let username:String
-    let profileImageUrl:String
-    init(dictionary:[String:Any]) {
-        self.username = dictionary["username"] as? String ?? ""
-        self.profileImageUrl = dictionary["profileImageURL"] as? String ?? ""
-        
-    }
-}
+

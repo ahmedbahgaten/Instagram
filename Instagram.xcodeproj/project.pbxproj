@@ -29,6 +29,8 @@
 		E2DAB0F623E9BF46003EBE93 /* HomePostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DAB0F523E9BF46003EBE93 /* HomePostCell.swift */; };
 		E2DDD5F023E73A9D005732E0 /* PhotoSelectorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DDD5EF23E73A9D005732E0 /* PhotoSelectorCell.swift */; };
 		E2DDD5F223E769F0005732E0 /* PhotoSelectorHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DDD5F123E769F0005732E0 /* PhotoSelectorHeader.swift */; };
+		E2F69A3923EC6CB700FE56DA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F69A3823EC6CB700FE56DA /* User.swift */; };
+		E2F69A3B23EDAD0500FE56DA /* FirebaseExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F69A3A23EDAD0500FE56DA /* FirebaseExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +60,8 @@
 		E2DAB0F523E9BF46003EBE93 /* HomePostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePostCell.swift; sourceTree = "<group>"; };
 		E2DDD5EF23E73A9D005732E0 /* PhotoSelectorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSelectorCell.swift; sourceTree = "<group>"; };
 		E2DDD5F123E769F0005732E0 /* PhotoSelectorHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSelectorHeader.swift; sourceTree = "<group>"; };
+		E2F69A3823EC6CB700FE56DA /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		E2F69A3A23EDAD0500FE56DA /* FirebaseExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +137,7 @@
 			children = (
 				E233F13B23C9EB70003EAC90 /* Extension.swift */,
 				E2DAB0F023E9A6BC003EBE93 /* CutomImageView.swift */,
+				E2F69A3A23EDAD0500FE56DA /* FirebaseExtension.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -171,6 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				E2DAB0EC23E8DB16003EBE93 /* Posts.swift */,
+				E2F69A3823EC6CB700FE56DA /* User.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -314,6 +320,8 @@
 				E273198323D8C0090038C590 /* LoginController.swift in Sources */,
 				E216ED9823C9BBE900DD4DF5 /* AppDelegate.swift in Sources */,
 				E2DAB0F423E9BBEC003EBE93 /* HomeController.swift in Sources */,
+				E2F69A3B23EDAD0500FE56DA /* FirebaseExtension.swift in Sources */,
+				E2F69A3923EC6CB700FE56DA /* User.swift in Sources */,
 				E2DAB0EF23E98CD0003EBE93 /* UserProfilePhotoCell.swift in Sources */,
 				E216ED9A23C9BBE900DD4DF5 /* SceneDelegate.swift in Sources */,
 				E2DDD5F023E73A9D005732E0 /* PhotoSelectorCell.swift in Sources */,

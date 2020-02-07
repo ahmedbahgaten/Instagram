@@ -28,7 +28,7 @@ class UserProfileController:UICollectionViewController,UICollectionViewDelegateF
             guard let dictionary = snapshot.value as? [String:Any] else {return}
             guard let user = self.user else {return}
             let post = Post(user:user,dictionary: dictionary)
-            self.posts.append(post)
+            self.posts.insert(post, at: 0)
             self.collectionView.reloadData()
         }) { (err) in
             print("Failed to Fetch Ordered Posts",err.localizedDescription)
@@ -86,15 +86,10 @@ class UserProfileController:UICollectionViewController,UICollectionViewDelegateF
     
     fileprivate func fetchUser () {
         guard let uid = Auth.auth().currentUser?.uid else {return}
-        Database.database().reference().child("users").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
-            print(snapshot.value ?? "")
-            let dictionary = snapshot.value as? [String:Any]
-            self.user = User(dictionary: dictionary ?? ["":""])
-            
+        Database.fetchUserWithUID(uid: uid) { (user) in
+            self.user = user
             self.navigationItem.title = self.user?.username
             self.collectionView.reloadData()
-        }) { (err) in
-            print("Failed to fetch",err)
         }
     }
 }

@@ -18,12 +18,4 @@ struct Post {
         self.caption = dictionary["caption"] as? String ?? ""
     }
 }
-struct User {
-    let username:String
-    let profileImageUrl:String
-    init(dictionary:[String:Any]) {
-        self.username = dictionary["username"] as? String ?? ""
-        self.profileImageUrl = dictionary["profileImageURL"] as? String ?? ""
-        
-    }
-}
+

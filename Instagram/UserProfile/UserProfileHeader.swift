@@ -41,7 +41,7 @@ class UserProfileHeader:UICollectionViewCell {
 
           return button
     }()
-    let editProfileButton: UIButton = {
+    let editProfileFollowButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Edit Profile", for: .normal)
         button.setTitleColor(.black, for: .normal)
@@ -49,8 +49,12 @@ class UserProfileHeader:UICollectionViewCell {
         button.layer.borderColor = UIColor.lightGray.cgColor
         button.layer.borderWidth = 1
         button.layer.cornerRadius = 3
+        button.addTarget(self, action: #selector(handleEditProfileOrFollow), for: .touchUpInside)
         return button
     }()
+    @objc func handleEditProfileOrFollow () {
+        print("")
+    }
     let usernameLabel : UILabel = {
        let label = UILabel()
         label.text = "username"
@@ -101,9 +105,10 @@ class UserProfileHeader:UICollectionViewCell {
         usernameLabel.setAnchor(top: profileImageView.bottomAnchor, left: leftAnchor, right: rightAnchor, bottom: gridButton.topAnchor, paddingBottom: 0, paddingLeft: 12, paddingRight: 12, paddingTop: 4, height: 0, width: 0)
      
         setupUsereStatsView()
-        addSubview(editProfileButton)
-        editProfileButton.setAnchor(top: postsLabel.bottomAnchor, left: postsLabel.leftAnchor, right: followingLabel.rightAnchor, bottom: nil, paddingBottom: 0, paddingLeft: 0, paddingRight: 0, paddingTop: 2, height: 34, width: 0)
+        addSubview(editProfileFollowButton)
+        editProfileFollowButton.setAnchor(top: postsLabel.bottomAnchor, left: postsLabel.leftAnchor, right: followingLabel.rightAnchor, bottom: nil, paddingBottom: 0, paddingLeft: 0, paddingRight: 0, paddingTop: 2, height: 34, width: 0)
     }
+    
     fileprivate func setupUsereStatsView() {
         let stackView = UIStackView(arrangedSubviews: [postsLabel,followersLabel,followingLabel])
         stackView.distribution = .fillEqually

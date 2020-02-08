@@ -12,6 +12,7 @@ class UserProfileController:UICollectionViewController,UICollectionViewDelegateF
     var posts = [Post]()
     var user:User?
     let cellID = "collectionViewCell"
+    var userID:String?
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView?.backgroundColor = .white
@@ -19,10 +20,9 @@ class UserProfileController:UICollectionViewController,UICollectionViewDelegateF
         collectionView.register(UserProfilePhotoCell.self, forCellWithReuseIdentifier: cellID)
         setupLogOutButton()
         fetchUser()
-        fetchOrderedPosts()
     }
     fileprivate func fetchOrderedPosts() {
-        guard let uid = Auth.auth().currentUser?.uid else {return}
+        guard let uid = user?.uid else {return}
         let ref = Database.database().reference().child("posts").child(uid)
         ref.queryOrdered(byChild: "creationDate").observe(.childAdded, with: { (snapshot) in
             guard let dictionary = snapshot.value as? [String:Any] else {return}
@@ -85,11 +85,12 @@ class UserProfileController:UICollectionViewController,UICollectionViewDelegateF
     }
     
     fileprivate func fetchUser () {
-        guard let uid = Auth.auth().currentUser?.uid else {return}
+        let uid = userID ?? Auth.auth().currentUser?.uid ?? ""
         Database.fetchUserWithUID(uid: uid) { (user) in
             self.user = user
             self.navigationItem.title = self.user?.username
             self.collectionView.reloadData()
+            self.fetchOrderedPosts()
         }
     }
 }

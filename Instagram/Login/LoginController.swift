@@ -85,6 +85,7 @@ class LoginController:UIViewController {
                 print ("Failed to singin",err)
                 return
             }
+            
             print("Successfully logged in with user",Auth.auth().currentUser?.uid ?? "")
             
             guard let mainTabBarController = UIApplication.shared.keyWindow?.rootViewController as? MainTabBarController else {return}

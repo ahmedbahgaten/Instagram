@@ -113,7 +113,6 @@ class UserProfileHeader:UICollectionViewCell {
             Database.database().reference().child("following").child(currentLoggedInUserId).child(userId).observeSingleEvent(of: .value, with: { [weak self](snapshot) in
                 if let isFollowing = snapshot.value as? Int , isFollowing == 1 {
                     self?.editProfileFollowButton.setTitle("Unfollow", for: .normal)
-                    
                 }
                 else {
                     self?.setupFollowStyle()

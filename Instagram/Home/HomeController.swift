@@ -9,15 +9,57 @@
 import UIKit
 import Firebase
 
-class HomeController:UICollectionViewController,UICollectionViewDelegateFlowLayout {
+class HomeController:UICollectionViewController,UICollectionViewDelegateFlowLayout,HomePostCellDelegate {
+    
     var posts = [Post]()
     let cellID = "cellID"
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(handleUpdateFeed), name: SharePhotoController.updateFeedNotificationName, object: nil)
+        
         collectionView.backgroundColor = .white
         collectionView.register(HomePostCell.self, forCellWithReuseIdentifier: cellID)
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
+        collectionView.refreshControl = refreshControl
         setupNavigationItems()
+        fetchAllPosts()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        tabBarController?.tabBar.isHidden = false
+    }
+    func didTapComment(post:Post) {
+        print("Message coming from homeController")
+        let commentsController = CommentsController(collectionViewLayout: UICollectionViewFlowLayout())
+        commentsController.post = post
+        navigationController?.pushViewController(commentsController, animated: true)
+       }
+    @objc func handleUpdateFeed () {
+        handleRefresh()
+    }
+    @objc func handleRefresh() {
+        print("Handling refresh ...")
+        posts.removeAll()
+        fetchAllPosts()
+    }
+    fileprivate func fetchAllPosts(){
         fetchPosts()
+        fetchFollowingUserIds()
+    }
+    fileprivate func fetchFollowingUserIds() {
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        Database.database().reference().child("following").child(uid).observeSingleEvent(of: .value, with: { [weak self] (snapshot) in
+            guard let userIdsDictionary = snapshot.value as? [String:Any] else {return}
+            userIdsDictionary.forEach { (key,value) in
+                Database.fetchUserWithUID(uid: key) { [weak self] (user) in
+                    self?.fetchPostsWithUser(user: user)
+                }
+            }
+            
+        }) { (err) in
+            print("Failed to fetch following users",err)
+        }
     }
     fileprivate func fetchPosts() {
         guard let uid = Auth.auth().currentUser?.uid else {return}
@@ -29,11 +71,16 @@ class HomeController:UICollectionViewController,UICollectionViewDelegateFlowLayo
         
         let ref = Database.database().reference().child("posts").child(user.uid)
         ref.observeSingleEvent(of: .value, with: { (snapshot) in
+            self.collectionView.refreshControl?.endRefreshing()
             guard let dictionaries = snapshot.value as? [String:Any] else {return}
             dictionaries.forEach { (key,value) in
                 guard let dictionary = value as? [String:Any] else {return}
-                let post = Post(user:user,dictionary: dictionary)
+                var post = Post(user:user,dictionary: dictionary)
+                post.id = key
                 self.posts.append(post)
+            }
+            self.posts.sort { (postOne, postTwo) -> Bool in
+                return postOne.creationDate.compare(postTwo.creationDate) == .orderedDescending
             }
             self.collectionView.reloadData()
         }) { (err) in
@@ -42,7 +89,14 @@ class HomeController:UICollectionViewController,UICollectionViewDelegateFlowLayo
     }
     func setupNavigationItems() {
         navigationItem.titleView = UIImageView(image: #imageLiteral(resourceName: "logo2"))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "camera3").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(handleCamera))
         
+    }
+    @objc func handleCamera() {
+        print("Showing Camera")
+        let cameraController = CameraController()
+        cameraController.modalPresentationStyle = .fullScreen
+        present(cameraController, animated: true, completion: nil)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         var height:CGFloat = 90 + 8 + 8
@@ -56,6 +110,7 @@ class HomeController:UICollectionViewController,UICollectionViewDelegateFlowLayo
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! HomePostCell
         cell.post = posts[indexPath.row]
+        cell.delegate = self
         return cell
     }
 }

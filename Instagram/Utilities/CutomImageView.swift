@@ -11,10 +11,12 @@ class CustomImageView:UIImageView {
     var imageCashe = [String:UIImage]()
     var lastURLUsedToLoadImage:String?
     func loadImage(urlString:String) {
+        
         if let cachedImage = imageCashe[urlString] {
             self.image = cachedImage
         }
         lastURLUsedToLoadImage = urlString
+        self.image = nil
         guard let url = URL(string: urlString) else {return}
               URLSession.shared.dataTask(with: url) { (data, response, err) in
                   if let err = err {

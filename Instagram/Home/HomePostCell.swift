@@ -7,7 +7,11 @@
 //
 
 import UIKit
+protocol HomePostCellDelegate : class {
+    func didTapComment(post:Post)
+}
 class HomePostCell:UICollectionViewCell {
+   weak var delegate : HomePostCellDelegate?
     var post :Post? {
         didSet {
             guard let postImageURL = post?.imageURL else {return}
@@ -15,7 +19,6 @@ class HomePostCell:UICollectionViewCell {
             userNameLabel.text = post?.user.username
             guard let profileImageURL = post?.user.profileImageUrl else {return}
             userProfileImageView.loadImage(urlString: profileImageURL)
-//            captionLabel.text = post?.caption
             setupAttributedCaption()
         }
     }
@@ -26,7 +29,9 @@ class HomePostCell:UICollectionViewCell {
         guard let postCaption = post.caption else {return}
         attributedText.append(NSAttributedString(string:"\(postCaption)", attributes: [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 13)]))
         attributedText.append(NSAttributedString(string: "\n\n", attributes: [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 4)]))
-        attributedText.append(NSAttributedString(string: "1 week ago ", attributes: [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 13),NSAttributedString.Key.foregroundColor: UIColor.gray]))
+        let timeAgoDisplay = post.creationDate.timeAgoDisplay()
+        attributedText.append(NSAttributedString(string: timeAgoDisplay , attributes: [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 13),NSAttributedString.Key.foregroundColor: UIColor.gray]))
+        
         captionLabel.attributedText = attributedText
         
     }
@@ -62,11 +67,17 @@ class HomePostCell:UICollectionViewCell {
         button.setImage(#imageLiteral(resourceName: "like_unselected").withRenderingMode(.alwaysOriginal), for: .normal)
         return button
     }()
-    let commentButton : UIButton = {
+    lazy var commentButton : UIButton = {
         let button = UIButton(type:.system)
         button.setImage(#imageLiteral(resourceName: "comment").withRenderingMode(.alwaysOriginal), for: .normal)
+        button.addTarget(self, action: #selector(handleComment), for: .touchUpInside)
         return button
     }()
+    @objc func handleComment() {
+        print("trying to show comments")
+        guard let post = self.post else {return}
+        delegate?.didTapComment(post:post)
+    }
     let sendMessageButton : UIButton = {
         let button = UIButton(type:.system)
         button.setImage(#imageLiteral(resourceName: "send2").withRenderingMode(.alwaysOriginal), for: .normal)

@@ -8,7 +8,12 @@
 
 import UIKit
 import Firebase
+protocol UserProfileHeaderDelegate : class {
+    func didChangeToListView()
+    func didChangeToGridView()
+}
 class UserProfileHeader:UICollectionViewCell {
+    weak var delegate : UserProfileHeaderDelegate?
     var user:User? {
         didSet {
             guard let profileImageURL = user?.profileImageUrl else {return}
@@ -21,18 +26,32 @@ class UserProfileHeader:UICollectionViewCell {
         let iv = CustomImageView()
         return iv
     }()
-    let gridButton :UIButton = {
+    lazy var gridButton :UIButton = {
         let button = UIButton(type: .system)
         button.setImage(#imageLiteral(resourceName: "grid"), for: .normal)
         button.tintColor = UIColor(white: 0, alpha: 0.2)
+        button.addTarget(self, action: #selector(handleChangeToGridView), for: .touchUpInside)
         return button
     }()
-    let listButton :UIButton = {
+    lazy var listButton :UIButton = {
         let button = UIButton(type: .system)
         button.setImage(#imageLiteral(resourceName: "list"), for: .normal)
         button.tintColor = UIColor(white: 0, alpha: 0.2)
+        button.addTarget(self, action: #selector(handleChangeToListView), for: .touchUpInside)
         return button
     }()
+    @objc func handleChangeToGridView () {
+        print("Handle Change To Grid view")
+        gridButton.tintColor = .mainBlue()
+        listButton.tintColor = UIColor(white: 0, alpha: 0.2)
+        delegate?.didChangeToGridView()
+    }
+    @objc func handleChangeToListView() {
+        print("Handle Change To List View")
+        listButton.tintColor = .mainBlue()
+        gridButton.tintColor = UIColor(white: 0, alpha: 0.2)
+        delegate?.didChangeToListView()
+    }
     let bookMarkButton :UIButton = {
         let button = UIButton(type: .system)
         button.setImage(#imageLiteral(resourceName: "ribbon"), for: .normal)
@@ -154,9 +173,9 @@ class UserProfileHeader:UICollectionViewCell {
     }
     fileprivate func setupFollowStyle() {
         editProfileFollowButton.setTitle("Follow", for: .normal)
-                      editProfileFollowButton.backgroundColor = UIColor.rgb(red: 17, green: 154, blue: 237)
-                      editProfileFollowButton.setTitleColor(.white, for: .normal)
-                      editProfileFollowButton.layer.borderColor = UIColor(white: 0, alpha: 0.2).cgColor
+        editProfileFollowButton.backgroundColor = UIColor.rgb(red: 17, green: 154, blue: 237)
+        editProfileFollowButton.setTitleColor(.white, for: .normal)
+        editProfileFollowButton.layer.borderColor = UIColor(white: 0, alpha: 0.2).cgColor
     }
     fileprivate func setupUsereStatsView() {
         let stackView = UIStackView(arrangedSubviews: [postsLabel,followersLabel,followingLabel])

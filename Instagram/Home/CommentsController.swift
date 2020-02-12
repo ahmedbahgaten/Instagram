@@ -52,11 +52,11 @@ class CommentsController : UICollectionViewController,UICollectionViewDelegateFl
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 50)
+        let frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 0)
         let dummyCell = CommentCell(frame: frame)
         dummyCell.comment = comments[indexPath.row]
         dummyCell.layoutIfNeeded()
-        let targetSize = CGSize(width: view.frame.width, height: 1000)
+        let targetSize = CGSize(width: view.frame.width, height: 0)
         let estimatedSize = dummyCell.systemLayoutSizeFitting(targetSize)
         let height = max(40 + 8 + 8 , estimatedSize.height)
         return CGSize(width: view.frame.width, height: height)
@@ -102,6 +102,7 @@ class CommentsController : UICollectionViewController,UICollectionViewDelegateFl
                 return
             }
             print("Successfully inserted comment.")
+            self.commentTextField.text = ""
         }
     }
     override var inputAccessoryView: UIView? {

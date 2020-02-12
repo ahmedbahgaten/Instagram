@@ -34,6 +34,53 @@
             endingLineNumber = "39"
             landmarkName = "fetchComments()"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "0FAC71FF-5514-474D-93DB-41AD60DD4E1D - 932ee64ee500cea2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Instagram.CommentsController.(fetchComments in _C30696433B3E4357A98E6A2F33B45CDE)() -&gt; ()"
+                  moduleName = "Instagram"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ahmed/Desktop/Instagram/Instagram/Home/CommentsController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "39"
+                  endingLineNumber = "39"
+                  offsetFromSymbolStart = "1211">
+               </Location>
+               <Location
+                  uuid = "0FAC71FF-5514-474D-93DB-41AD60DD4E1D - 32162aacda89fff3"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.FIRDataSnapshot) -&gt; () in Instagram.CommentsController.(fetchComments in _C30696433B3E4357A98E6A2F33B45CDE)() -&gt; ()"
+                  moduleName = "Instagram"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ahmed/Desktop/Instagram/Instagram/Home/CommentsController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "39"
+                  endingLineNumber = "39"
+                  offsetFromSymbolStart = "1180">
+               </Location>
+               <Location
+                  uuid = "0FAC71FF-5514-474D-93DB-41AD60DD4E1D - bc0d69c6a9362047"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Error) -&gt; () in Instagram.CommentsController.(fetchComments in _C30696433B3E4357A98E6A2F33B45CDE)() -&gt; ()"
+                  moduleName = "Instagram"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ahmed/Desktop/Instagram/Instagram/Home/CommentsController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "40"
+                  endingLineNumber = "40"
+                  offsetFromSymbolStart = "20">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -35,6 +35,24 @@ class HomeController:UICollectionViewController,UICollectionViewDelegateFlowLayo
         commentsController.post = post
         navigationController?.pushViewController(commentsController, animated: true)
        }
+    func didLike(for cell: HomePostCell) {
+        print("Handling like inside the controller")
+        guard let indexPath = collectionView.indexPath(for: cell) else {return}
+         var post = self.posts[indexPath.row]
+        guard let postId = post.id else {return}
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        let values = [uid:post.hasLiked == true ? 0 : 1 ]
+        Database.database().reference().child("likes").child(postId).updateChildValues(values) {  (err, _ ref) in
+            if let err = err {
+                print("Failed to like post",err)
+                return
+            }
+            print("Successfully liked post")
+            post.hasLiked = !post.hasLiked
+            self.posts[indexPath.row] = post
+            self.collectionView?.reloadData()   
+        }
+    }
     @objc func handleUpdateFeed () {
         handleRefresh()
     }
@@ -77,12 +95,25 @@ class HomeController:UICollectionViewController,UICollectionViewDelegateFlowLayo
                 guard let dictionary = value as? [String:Any] else {return}
                 var post = Post(user:user,dictionary: dictionary)
                 post.id = key
-                self.posts.append(post)
+                guard let uid = Auth.auth().currentUser?.uid else {return}
+                Database.database().reference().child("likes").child(key).child(uid).observeSingleEvent(of: .value, with: { [weak self] (snapshot) in
+                    print(snapshot)
+                    if let value = snapshot.value as? Int , value == 1 {
+                        post.hasLiked = true
+                    }else {
+                        post.hasLiked = false
+                    }
+                    self?.posts.append(post)
+                    self?.posts.sort { (postOne, postTwo) -> Bool in
+                        return postOne.creationDate.compare(postTwo.creationDate) == .orderedDescending
+                    }
+                    self?.collectionView.reloadData()
+                    
+                }) { (err) in
+                    print("Failed to fetch like for post",err)
+                }
             }
-            self.posts.sort { (postOne, postTwo) -> Bool in
-                return postOne.creationDate.compare(postTwo.creationDate) == .orderedDescending
-            }
-            self.collectionView.reloadData()
+            
         }) { (err) in
             print("Failed to fetch posts",err.localizedDescription)
         }

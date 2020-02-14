@@ -15,6 +15,7 @@ class UserProfileController:UICollectionViewController,UICollectionViewDelegateF
     let homePostCellID = "homePostCellId"
     var userID:String?
     var isGridView = true
+    var isFinishedPaging = false
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView?.backgroundColor = .white
@@ -24,6 +25,11 @@ class UserProfileController:UICollectionViewController,UICollectionViewDelegateF
         setupLogOutButton()
         fetchUser()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        collectionView.reloadData()
+    }
+   
     func didChangeToGridView() {
         isGridView = true
         collectionView.reloadData()
@@ -40,13 +46,13 @@ class UserProfileController:UICollectionViewController,UICollectionViewDelegateF
             guard let user = self.user else {return}
             let post = Post(user:user,dictionary: dictionary)
             self.posts.insert(post, at: 0)
+            
             self.collectionView.reloadData()
         }) { (err) in
             print("Failed to Fetch Ordered Posts",err.localizedDescription)
         }
     }
-    
-    fileprivate func setupLogOutButton () {
+                fileprivate func setupLogOutButton () {
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "gear"), style: .plain, target: self, action: #selector(handleLogOut))
         navigationItem.rightBarButtonItem?.tintColor = .black
     }
@@ -86,10 +92,9 @@ class UserProfileController:UICollectionViewController,UICollectionViewDelegateF
             height += view.frame.width
             return CGSize(width: view.frame.width, height: height)
         }
-        
-        
     }
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         if isGridView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! UserProfilePhotoCell
             cell.post = posts[indexPath.row]
@@ -104,7 +109,11 @@ class UserProfileController:UICollectionViewController,UICollectionViewDelegateF
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerId", for: indexPath) as! UserProfileHeader
         header.backgroundColor = .white
         header.user = self.user
+        header.setupPostsCount()
+        header.setupFollowingCount()
+        header.setupFollowersCount()
         header.delegate = self
+        
         return header
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
@@ -118,6 +127,7 @@ class UserProfileController:UICollectionViewController,UICollectionViewDelegateF
             self.navigationItem.title = self.user?.username
             self.collectionView.reloadData()
             self.fetchOrderedPosts()
+            
         }
     }
 }

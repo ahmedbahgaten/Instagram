@@ -7,80 +7,49 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "73C40D75-F80A-4523-B016-A0F3F3BA1B2B"
+            uuid = "289F0310-8FA6-4018-A9AB-B95F25998B93"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Instagram/Home/CommentsController.swift"
+            filePath = "Instagram/UserProfile/UserProfileHeader.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "31"
-            endingLineNumber = "31"
-            landmarkName = "fetchComments()"
+            startingLineNumber = "118"
+            endingLineNumber = "118"
+            landmarkName = "init(frame:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "0FAC71FF-5514-474D-93DB-41AD60DD4E1D"
+            uuid = "150F1F47-F034-489B-B93E-568848A6ABED"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Instagram/Home/CommentsController.swift"
+            filePath = "Instagram/UserProfile/UserProfileHeader.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "39"
-            endingLineNumber = "39"
-            landmarkName = "fetchComments()"
+            startingLineNumber = "168"
+            endingLineNumber = "168"
+            landmarkName = "setupFollowersCount()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "0FAC71FF-5514-474D-93DB-41AD60DD4E1D - 932ee64ee500cea2"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Instagram.CommentsController.(fetchComments in _C30696433B3E4357A98E6A2F33B45CDE)() -&gt; ()"
-                  moduleName = "Instagram"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/ahmed/Desktop/Instagram/Instagram/Home/CommentsController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "39"
-                  endingLineNumber = "39"
-                  offsetFromSymbolStart = "1211">
-               </Location>
-               <Location
-                  uuid = "0FAC71FF-5514-474D-93DB-41AD60DD4E1D - 32162aacda89fff3"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (__C.FIRDataSnapshot) -&gt; () in Instagram.CommentsController.(fetchComments in _C30696433B3E4357A98E6A2F33B45CDE)() -&gt; ()"
-                  moduleName = "Instagram"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/ahmed/Desktop/Instagram/Instagram/Home/CommentsController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "39"
-                  endingLineNumber = "39"
-                  offsetFromSymbolStart = "1180">
-               </Location>
-               <Location
-                  uuid = "0FAC71FF-5514-474D-93DB-41AD60DD4E1D - bc0d69c6a9362047"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #2 (Swift.Error) -&gt; () in Instagram.CommentsController.(fetchComments in _C30696433B3E4357A98E6A2F33B45CDE)() -&gt; ()"
-                  moduleName = "Instagram"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/ahmed/Desktop/Instagram/Instagram/Home/CommentsController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "40"
-                  endingLineNumber = "40"
-                  offsetFromSymbolStart = "20">
-               </Location>
-            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E7517FBC-4170-4413-970A-EE286C39D971"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Instagram/UserProfile/UserProfileHeader.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "171"
+            endingLineNumber = "171"
+            landmarkName = "setupFollowersCount()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

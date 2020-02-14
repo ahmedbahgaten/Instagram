@@ -109,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				E216ED9623C9BBE900DD4DF5 /* Instagram */,
+				E2F69A4123F0485E00FE56DA /* Camera */,
 				E216ED9523C9BBE900DD4DF5 /* Products */,
 				B16EE1E99DBECB1E3EBC0533 /* Pods */,
 				1DF61A5E6385380FB7D0BA75 /* Frameworks */,
@@ -126,7 +127,6 @@
 		E216ED9623C9BBE900DD4DF5 /* Instagram */ = {
 			isa = PBXGroup;
 			children = (
-				E2F69A4123F0485E00FE56DA /* Camera */,
 				E2F69A3C23EDC82700FE56DA /* Search */,
 				E2DAB0F223E9BBE0003EBE93 /* Home */,
 				E2DAB0EB23E8DB06003EBE93 /* Models */,

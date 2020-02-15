@@ -187,7 +187,7 @@ class UserProfileHeader:UICollectionViewCell {
                 self?.setupFollowStyle()
                 
             }
-            Database.database().reference().child("followers").child(userId).removeValue { (err, ref) in
+            Database.database().reference().child("followers").child(userId).child(currentLoggedInUserId).removeValue { (err, ref) in
                 if let err = err {
                     print("Failed to delete a follower",err)
                     return

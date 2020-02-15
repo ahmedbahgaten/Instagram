@@ -40,7 +40,7 @@ class MainTabBarController: UITabBarController,UITabBarControllerDelegate {
             //userProfile
             let userProfileNavController = templateNavController(unselectedImage: #imageLiteral(resourceName: "profile_unselected"), selectedImage: #imageLiteral(resourceName: "profile_selected"), rootViewController: UserProfileController(collectionViewLayout: UICollectionViewFlowLayout()))
             tabBar.tintColor = .black
-            viewControllers = [homeNavController, searchNavController,plusNavController, likeNavController,userProfileNavController ]
+            viewControllers = [homeNavController, searchNavController,plusNavController, likeNavController,userProfileNavController]
             guard let items = tabBar.items else { return }
             for item in items {
                 item.imageInsets = UIEdgeInsets(top: 4, left: 0, bottom: -4 , right: 0)

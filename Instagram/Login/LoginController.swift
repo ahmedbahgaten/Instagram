@@ -85,16 +85,13 @@ class LoginController:UIViewController {
                 print ("Failed to singin",err)
                 return
             }
-            
             print("Successfully logged in with user",Auth.auth().currentUser?.uid ?? "")
-            
             guard let mainTabBarController = UIApplication.shared.keyWindow?.rootViewController as? MainTabBarController else {return}
             mainTabBarController.setupViewControllers()
+            mainTabBarController.tabBar.isHidden = false
             self.dismiss(animated: true, completion: nil)
         }
     }
-
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -103,7 +100,6 @@ class LoginController:UIViewController {
         view.addSubview(dontHaveAccountButton)
         view.addSubview(logoContainerView)
         hideKeyboardWhenTappedAround()
-        
         dontHaveAccountButton.setAnchor(top: nil, left: view.leftAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, paddingBottom: 10, paddingLeft: 0, paddingRight: 0, paddingTop: 0, height: 0, width: 0)
         logoContainerView .setAnchor(top: view.topAnchor, left: view.leftAnchor, right: view.rightAnchor, bottom: nil, paddingBottom: 0, paddingLeft: 0, paddingRight: 0, paddingTop: 0, height: 150, width: 0)
         setupInputFields()
@@ -121,16 +117,12 @@ class LoginController:UIViewController {
     }
 }
 extension UIViewController {
-    
     func hideKeyboardWhenTappedAround() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
     }
-    
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
-    
-    
 }

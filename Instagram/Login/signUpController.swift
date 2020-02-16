@@ -9,6 +9,11 @@
 import UIKit
 import Firebase
 class signUpController: UIViewController , UIImagePickerControllerDelegate,UINavigationControllerDelegate{
+    let loadingIndicator:UIActivityIndicatorView = {
+          let LI = UIActivityIndicatorView()
+           LI.tintColor = .gray
+           return LI
+       }()
     let plusButtonPhoto: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(#imageLiteral(resourceName: "plus_photo").withRenderingMode(.alwaysOriginal), for: .normal)
@@ -65,6 +70,7 @@ class signUpController: UIViewController , UIImagePickerControllerDelegate,UINav
         
     }
     @objc func handleSignUp() {
+        loadingIndicator.startAnimating()
         guard let email = emailTextField.text , email.isEmpty == false  else {return}
         guard let username = usernameTextField.text , username.isEmpty == false  else {return}
         guard let password = passwordTextField.text , password.isEmpty == false  else {return}
@@ -104,6 +110,7 @@ class signUpController: UIViewController , UIImagePickerControllerDelegate,UINav
                                 
                             }
                             self.navigationController?.popViewController(animated: true)
+                            self.loadingIndicator.stopAnimating()
                         }
                     }
                 }
@@ -165,6 +172,7 @@ class signUpController: UIViewController , UIImagePickerControllerDelegate,UINav
         plusButtonPhoto.setAnchor(top: view.topAnchor, left: nil, right: nil, bottom: nil, paddingBottom: 0, paddingLeft: 0, paddingRight: 0, paddingTop: 40, height: 140, width: 140)
         plusButtonPhoto.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         alreadyHaveAccountButton.setAnchor(top: nil , left: view.leftAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, paddingBottom: 10, paddingLeft: 0, paddingRight: 0, paddingTop: 20, height: 0, width: 0)
+      
         setupInputFields()
         
     }
@@ -175,6 +183,9 @@ class signUpController: UIViewController , UIImagePickerControllerDelegate,UINav
         stackView.axis = .vertical
         stackView.spacing = 10
         stackView.setAnchor(top: plusButtonPhoto.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, bottom: nil, paddingBottom: 0, paddingLeft: 40, paddingRight: 40, paddingTop: 20, height: 200, width: 0)
+        view.addSubview(loadingIndicator)
+              loadingIndicator.setAnchor(top: stackView.bottomAnchor, left: nil, right: nil, bottom: nil, paddingBottom: 0, paddingLeft: 0, paddingRight: 0, paddingTop: 50, height: 50, width: 50)
+                    loadingIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
 }
 extension UIView {

@@ -17,6 +17,11 @@ class LoginController:UIViewController {
         button.addTarget(self, action: #selector(handleDontHaveAccount), for: .touchUpInside)
         return button
     }()
+    let loadingIndicator:UIActivityIndicatorView = {
+       let LI = UIActivityIndicatorView()
+        LI.tintColor = .gray
+        return LI
+    }()
     @objc func handleDontHaveAccount() {
         let SignUpController = signUpController()
         navigationController?.pushViewController(SignUpController,animated:true)
@@ -78,6 +83,7 @@ class LoginController:UIViewController {
           return button
       }()
     @objc func handleLogIn() {
+        loadingIndicator.startAnimating()
         guard let email = emailTextField.text else {return}
         guard let password = passwordTextField.text else {return}
         Auth.auth().signIn(withEmail: email, password: password) { (user, err) in
@@ -90,6 +96,7 @@ class LoginController:UIViewController {
             mainTabBarController.setupViewControllers()
             mainTabBarController.tabBar.isHidden = false
             self.dismiss(animated: true, completion: nil)
+            self.loadingIndicator.stopAnimating()
         }
     }
     override func viewDidLoad() {
@@ -102,6 +109,7 @@ class LoginController:UIViewController {
         hideKeyboardWhenTappedAround()
         dontHaveAccountButton.setAnchor(top: nil, left: view.leftAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, paddingBottom: 10, paddingLeft: 0, paddingRight: 0, paddingTop: 0, height: 0, width: 0)
         logoContainerView .setAnchor(top: view.topAnchor, left: view.leftAnchor, right: view.rightAnchor, bottom: nil, paddingBottom: 0, paddingLeft: 0, paddingRight: 0, paddingTop: 0, height: 150, width: 0)
+       
         setupInputFields()
     }
     fileprivate func setupInputFields() {
@@ -111,18 +119,12 @@ class LoginController:UIViewController {
         stackView.distribution = .fillEqually
         view.addSubview(stackView)
         stackView.setAnchor(top: logoContainerView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, bottom: nil, paddingBottom: 0, paddingLeft: 40, paddingRight: 40, paddingTop: 40, height: 140, width: 0)
+        view.addSubview(loadingIndicator)
+        loadingIndicator.setAnchor(top: stackView.bottomAnchor, left: nil, right: nil, bottom: nil, paddingBottom: 0, paddingLeft: 0, paddingRight: 0, paddingTop: 20, height: 100, width: 100)
+        loadingIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
 }
-extension UIViewController {
-    func hideKeyboardWhenTappedAround() {
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
-        tap.cancelsTouchesInView = false
-        view.addGestureRecognizer(tap)
-    }
-    @objc func dismissKeyboard() {
-        view.endEditing(true)
-    }
-}
+

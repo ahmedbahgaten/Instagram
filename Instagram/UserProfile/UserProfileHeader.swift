@@ -223,7 +223,6 @@ class UserProfileHeader:UICollectionViewCell {
         else {
             editProfileFollowButton.addTarget(self, action: #selector(handleEditProfile), for: .touchUpInside)
         }
-        
     }
     @objc func handleEditProfile() {
         print("This is edit profile button")

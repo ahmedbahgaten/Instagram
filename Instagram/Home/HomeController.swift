@@ -50,16 +50,17 @@ class HomeController:UICollectionViewController,UICollectionViewDelegateFlowLayo
             print("Successfully liked post")
             post.hasLiked = !post.hasLiked
             self.posts[indexPath.row] = post
-            self.collectionView?.reloadData()   
+            self.collectionView?.reloadData()
         }
     }
     @objc func handleUpdateFeed () {
         handleRefresh()
     }
     @objc func handleRefresh() {
-        print("Handling refresh ...")
+        print("Handling refresh...")
         posts.removeAll()
         fetchAllPosts()
+        collectionView.reloadData()
     }
     fileprivate func fetchAllPosts(){
         fetchPosts()
@@ -85,8 +86,7 @@ class HomeController:UICollectionViewController,UICollectionViewDelegateFlowLayo
             self.fetchPostsWithUser(user: user)
         }
     }
-    fileprivate func fetchPostsWithUser(user:User) {
-        
+     func fetchPostsWithUser(user:User) {
         let ref = Database.database().reference().child("posts").child(user.uid)
         ref.observeSingleEvent(of: .value, with: { (snapshot) in
             self.collectionView.refreshControl?.endRefreshing()

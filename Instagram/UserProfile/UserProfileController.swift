@@ -8,7 +8,10 @@
 
 import UIKit
 import Firebase
-class UserProfileController:UICollectionViewController,UICollectionViewDelegateFlowLayout, UserProfileHeaderDelegate {
+class UserProfileController:UICollectionViewController,UICollectionViewDelegateFlowLayout, UserProfileHeaderDelegate,HomePostCellDelegate{
+    
+    
+    
     var posts = [Post]()
     var user:User?
     let cellID = "collectionViewCell"
@@ -38,15 +41,16 @@ class UserProfileController:UICollectionViewController,UICollectionViewDelegateF
         isGridView = false
         collectionView.reloadData()
     }
+    
     fileprivate func fetchOrderedPosts() {
         guard let uid = user?.uid else {return}
         let ref = Database.database().reference().child("posts").child(uid)
         ref.queryOrdered(byChild: "creationDate").observe(.childAdded, with: { (snapshot) in
             guard let dictionary = snapshot.value as? [String:Any] else {return}
             guard let user = self.user else {return}
-            let post = Post(user:user,dictionary: dictionary)
+            var post = Post(user:user,dictionary: dictionary)
+            post.id = snapshot.key
             self.posts.insert(post, at: 0)
-            
             self.collectionView.reloadData()
         }) { (err) in
             print("Failed to Fetch Ordered Posts",err.localizedDescription)
@@ -73,6 +77,30 @@ class UserProfileController:UICollectionViewController,UICollectionViewDelegateF
         Alert.addAction(cancelAction)
         present(Alert,animated: true,completion: nil)
     }
+    func didLike(for cell: HomePostCell) {
+        print("Handling like inside the controller")
+        guard let indexPath = collectionView.indexPath(for: cell) else {return}
+         var post = self.posts[indexPath.row]
+        guard let postId = post.id else {return}
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        let values = [uid:post.hasLiked == true ? 0 : 1 ]
+        Database.database().reference().child("likes").child(postId).updateChildValues(values) {  (err, _ ref) in
+            if let err = err {
+                print("Failed to like post",err)
+                return
+            }
+            print("Successfully liked post")
+            post.hasLiked = !post.hasLiked
+            self.posts[indexPath.row] = post
+            self.collectionView?.reloadData()
+        }
+    }
+    func didTapComment(post:Post) {
+           print("Message coming from homeController")
+           let commentsController = CommentsController(collectionViewLayout: UICollectionViewFlowLayout())
+           commentsController.post = post
+           navigationController?.pushViewController(commentsController, animated: true)
+          }
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return posts.count
     }
@@ -102,6 +130,7 @@ class UserProfileController:UICollectionViewController,UICollectionViewDelegateF
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: homePostCellID, for: indexPath) as! HomePostCell
             cell.post = posts[indexPath.row]
+            cell.delegate = self
             return cell
         }
     }

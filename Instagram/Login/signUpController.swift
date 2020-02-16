@@ -10,10 +10,10 @@ import UIKit
 import Firebase
 class signUpController: UIViewController , UIImagePickerControllerDelegate,UINavigationControllerDelegate{
     let loadingIndicator:UIActivityIndicatorView = {
-          let LI = UIActivityIndicatorView()
-           LI.tintColor = .gray
-           return LI
-       }()
+        let LI = UIActivityIndicatorView()
+        LI.tintColor = .gray
+        return LI
+    }()
     let plusButtonPhoto: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(#imageLiteral(resourceName: "plus_photo").withRenderingMode(.alwaysOriginal), for: .normal)
@@ -90,6 +90,7 @@ class signUpController: UIViewController , UIImagePickerControllerDelegate,UINav
                 if let err = err {
                     print("Failed to upload profile image",err)
                     return
+                    
                 }
                 print("Successfully uploaded")
                 guard let userID = Auth.auth().currentUser?.uid else {return}
@@ -172,7 +173,7 @@ class signUpController: UIViewController , UIImagePickerControllerDelegate,UINav
         plusButtonPhoto.setAnchor(top: view.topAnchor, left: nil, right: nil, bottom: nil, paddingBottom: 0, paddingLeft: 0, paddingRight: 0, paddingTop: 40, height: 140, width: 140)
         plusButtonPhoto.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         alreadyHaveAccountButton.setAnchor(top: nil , left: view.leftAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, paddingBottom: 10, paddingLeft: 0, paddingRight: 0, paddingTop: 20, height: 0, width: 0)
-      
+        
         setupInputFields()
         
     }
@@ -184,33 +185,11 @@ class signUpController: UIViewController , UIImagePickerControllerDelegate,UINav
         stackView.spacing = 10
         stackView.setAnchor(top: plusButtonPhoto.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, bottom: nil, paddingBottom: 0, paddingLeft: 40, paddingRight: 40, paddingTop: 20, height: 200, width: 0)
         view.addSubview(loadingIndicator)
-              loadingIndicator.setAnchor(top: stackView.bottomAnchor, left: nil, right: nil, bottom: nil, paddingBottom: 0, paddingLeft: 0, paddingRight: 0, paddingTop: 50, height: 50, width: 50)
-                    loadingIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        loadingIndicator.setAnchor(top: stackView.bottomAnchor, left: nil, right: nil, bottom: nil, paddingBottom: 0, paddingLeft: 0, paddingRight: 0, paddingTop: 50, height: 50, width: 50)
+        loadingIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
 }
-extension UIView {
-    func setAnchor(top:NSLayoutYAxisAnchor? ,left:NSLayoutXAxisAnchor?,right:NSLayoutXAxisAnchor?,bottom:NSLayoutYAxisAnchor?,paddingBottom:CGFloat,paddingLeft:CGFloat,paddingRight:CGFloat, paddingTop :CGFloat,height:CGFloat,width:CGFloat ) {
-        self.translatesAutoresizingMaskIntoConstraints = false
-        if let top = top {
-            self.topAnchor.constraint(equalTo: top, constant: paddingTop).isActive = true
-        }
-        if let left = left {
-            self.leftAnchor.constraint(equalTo: left, constant: paddingLeft).isActive = true
-        }
-        if let right = right {
-            self.rightAnchor.constraint(equalTo: right, constant: -paddingRight).isActive = true
-        }
-        if let bottom = bottom {
-            self.bottomAnchor.constraint(equalTo: bottom, constant: -paddingBottom).isActive = true
-        }
-        if height != 0 {
-            heightAnchor.constraint(equalToConstant: height).isActive = true
-        }
-        if width != 0 {
-            widthAnchor.constraint(equalToConstant: width).isActive = true
-        }
-    }
-}
+
 
 
 

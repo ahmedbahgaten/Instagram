@@ -51,7 +51,6 @@ class CameraController:UIViewController,AVCapturePhotoCaptureDelegate {
     @objc func handleCapturePhoto() {
         print("Capturing photo")
         let photoSettings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
-        photoSettings.isAutoStillImageStabilizationEnabled = true
         photoSettings.isHighResolutionPhotoEnabled = true
         photoSettings.flashMode = .auto
         stillImageOutput.isHighResolutionCaptureEnabled = true

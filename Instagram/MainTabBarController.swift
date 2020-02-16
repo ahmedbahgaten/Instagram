@@ -36,11 +36,11 @@ class MainTabBarController: UITabBarController,UITabBarControllerDelegate {
             // search
             let searchNavController = templateNavController(unselectedImage:#imageLiteral(resourceName: "search_unselected")  , selectedImage: #imageLiteral(resourceName: "search_selected"),rootViewController: UserSearchController(collectionViewLayout: UICollectionViewFlowLayout()))
             let plusNavController = templateNavController(unselectedImage: #imageLiteral(resourceName: "plus_unselected"), selectedImage: #imageLiteral(resourceName: "plus_unselected"))
-            let likeNavController = templateNavController(unselectedImage: #imageLiteral(resourceName: "like_unselected"), selectedImage: #imageLiteral(resourceName: "like_selected"))
+            
             //userProfile
             let userProfileNavController = templateNavController(unselectedImage: #imageLiteral(resourceName: "profile_unselected"), selectedImage: #imageLiteral(resourceName: "profile_selected"), rootViewController: UserProfileController(collectionViewLayout: UICollectionViewFlowLayout()))
             tabBar.tintColor = .black
-            viewControllers = [homeNavController, searchNavController,plusNavController, likeNavController,userProfileNavController]
+            viewControllers = [homeNavController, searchNavController,plusNavController,userProfileNavController]
             guard let items = tabBar.items else { return }
             for item in items {
                 item.imageInsets = UIEdgeInsets(top: 4, left: 0, bottom: -4 , right: 0)

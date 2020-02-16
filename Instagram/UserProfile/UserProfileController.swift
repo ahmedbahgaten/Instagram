@@ -19,8 +19,11 @@ class UserProfileController:UICollectionViewController,UICollectionViewDelegateF
     var userID:String?
     var isGridView = true
     var isFinishedPaging = false
+    let refreshControl = UIRefreshControl()
     override func viewDidLoad() {
         super.viewDidLoad()
+               refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
+               collectionView.refreshControl = refreshControl
         collectionView?.backgroundColor = .white
         collectionView?.register(UserProfileHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "headerId")
         collectionView.register(UserProfilePhotoCell.self, forCellWithReuseIdentifier: cellID)
@@ -28,9 +31,13 @@ class UserProfileController:UICollectionViewController,UICollectionViewDelegateF
         setupLogOutButton()
         fetchUser()
     }
+    @objc func handleRefresh() {
+     fetchUserUsername()
+    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         collectionView.reloadData()
+        tabBarController?.tabBar.isHidden = false
     }
    
     func didChangeToGridView() {
@@ -40,6 +47,11 @@ class UserProfileController:UICollectionViewController,UICollectionViewDelegateF
     func didChangeToListView() {
         isGridView = false
         collectionView.reloadData()
+    }
+    func didTappedEditProfile(userProfileURL: String) {
+        let editProfileController = EditProfileController()
+        editProfileController.profileImageString = userProfileURL
+        navigationController?.pushViewController(editProfileController, animated: true)
     }
     
     fileprivate func fetchOrderedPosts() {
@@ -101,6 +113,14 @@ class UserProfileController:UICollectionViewController,UICollectionViewDelegateF
            commentsController.post = post
            navigationController?.pushViewController(commentsController, animated: true)
           }
+    func setupUserProfileStatus(header:UserProfileHeader) {
+        header.setupPostsCount()
+        header.setupFollowersCount()
+        header.setupFollowingCount()
+    }
+    @objc func handleUpdateUsername() {
+        fetchUserUsername()
+    }
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return posts.count
     }
@@ -124,10 +144,12 @@ class UserProfileController:UICollectionViewController,UICollectionViewDelegateF
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         if isGridView {
+            NotificationCenter.default.addObserver(self, selector: #selector(handleUpdateUsername), name: EditProfileController.updateUsername, object: nil)
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! UserProfilePhotoCell
             cell.post = posts[indexPath.row]
             return cell
         } else {
+            NotificationCenter.default.addObserver(self, selector: #selector(handleUpdateUsername), name: EditProfileController.updateUsername, object: nil)
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: homePostCellID, for: indexPath) as! HomePostCell
             cell.post = posts[indexPath.row]
             cell.delegate = self
@@ -138,13 +160,12 @@ class UserProfileController:UICollectionViewController,UICollectionViewDelegateF
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerId", for: indexPath) as! UserProfileHeader
         header.backgroundColor = .white
         header.user = self.user
-        header.setupPostsCount()
-        header.setupFollowingCount()
-        header.setupFollowersCount()
+        setupUserProfileStatus(header: header)
         header.delegate = self
         
         return header
     }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: view.frame.width, height: 200 )
     }
@@ -158,6 +179,15 @@ class UserProfileController:UICollectionViewController,UICollectionViewDelegateF
             self.fetchOrderedPosts()
             
         }
+    }
+    fileprivate func fetchUserUsername() {
+        let uid = userID ?? Auth.auth().currentUser?.uid ?? ""
+                    Database.fetchUserWithUID(uid: uid) { (user) in
+                        self.user = user
+                        self.navigationItem.title = self.user?.username
+                        self.collectionView.reloadData()
+                     self.refreshControl.endRefreshing()
+         }
     }
 }
 

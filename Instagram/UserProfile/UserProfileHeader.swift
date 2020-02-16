@@ -11,6 +11,7 @@ import Firebase
 protocol UserProfileHeaderDelegate : class {
     func didChangeToListView()
     func didChangeToGridView()
+    func didTappedEditProfile(userProfileURL:String)
 }
 class UserProfileHeader:UICollectionViewCell {
     var noOfPosts:Int?
@@ -107,6 +108,7 @@ class UserProfileHeader:UICollectionViewCell {
         profileImageView.setAnchor(top: self.topAnchor, left: self.leftAnchor, right: nil, bottom: nil, paddingBottom: 0, paddingLeft: 12, paddingRight: 0, paddingTop: 12, height: 80, width: 80)
         profileImageView.layer.cornerRadius = 80/2
         profileImageView.clipsToBounds = true
+        profileImageView.contentMode = .scaleAspectFill
         setupBottomToolBar()
         
         addSubview(usernameLabel)
@@ -226,6 +228,8 @@ class UserProfileHeader:UICollectionViewCell {
     }
     @objc func handleEditProfile() {
         print("This is edit profile button")
+        guard let userImageURL = user?.profileImageUrl else {return}
+        delegate?.didTappedEditProfile(userProfileURL: userImageURL)
     }
     fileprivate func setupFollowStyle() {
         editProfileFollowButton.setTitle("Follow", for: .normal)

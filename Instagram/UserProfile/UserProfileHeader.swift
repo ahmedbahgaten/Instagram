@@ -196,7 +196,6 @@ class UserProfileHeader:UICollectionViewCell {
                 }
                 print("Successfully deleted a follower")
                 self.setupFollowersCount()
-                
             }
             
         }else if editProfileFollowButton.titleLabel?.text == "Follow" {

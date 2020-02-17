@@ -118,7 +118,7 @@ class UserProfileController:UICollectionViewController,UICollectionViewDelegateF
         header.setupFollowersCount()
         header.setupFollowingCount()
     }
-    @objc func handleUpdateUsername() {
+    @objc func updateUserData() {
         fetchUserUsername()
     }
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -144,12 +144,12 @@ class UserProfileController:UICollectionViewController,UICollectionViewDelegateF
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         if isGridView {
-            NotificationCenter.default.addObserver(self, selector: #selector(handleUpdateUsername), name: EditProfileController.updateUsername, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(updateUserData), name: EditProfileController.updateUserData, object: nil)
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! UserProfilePhotoCell
             cell.post = posts[indexPath.row]
             return cell
         } else {
-            NotificationCenter.default.addObserver(self, selector: #selector(handleUpdateUsername), name: EditProfileController.updateUsername, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(updateUserData), name: EditProfileController.updateUserData, object: nil)
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: homePostCellID, for: indexPath) as! HomePostCell
             cell.post = posts[indexPath.row]
             cell.delegate = self

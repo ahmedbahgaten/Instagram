@@ -16,7 +16,7 @@ class HomeController:UICollectionViewController,UICollectionViewDelegateFlowLayo
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(handleUpdateFeed), name: SharePhotoController.updateFeedNotificationName, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleUsernameUpdate), name: EditProfileController.updateUsername, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleUsernameUpdate), name: EditProfileController.updateUserData, object: nil)
         
         collectionView.backgroundColor = .white
         collectionView.register(HomePostCell.self, forCellWithReuseIdentifier: cellID)

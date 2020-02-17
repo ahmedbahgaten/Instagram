@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 class EditProfileController :UIViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
-    static let updateUsername = NSNotification.Name("updateFeed")
+    static let updateUserData = NSNotification.Name("updateFeed")
     var profileImageString:String? {
         didSet{
             guard let profileImg = profileImageString else {return}
@@ -105,29 +105,68 @@ class EditProfileController :UIViewController,UIImagePickerControllerDelegate,UI
     }
     @objc func addTapped() {
         print("Changed")
-        usernameTextField.resignFirstResponder()
-        loadingIndicator.startAnimating()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
-            guard let usernameTxt = self?.usernameTextField.text else {return}
-        if usernameTxt.isEmpty {
-            self?.navigationItem.rightBarButtonItem?.isEnabled = false
-        }else {
-            let username = usernameTxt
-            guard let uid = Auth.auth().currentUser?.uid else {return}
-            let values = ["username":username]
-            Database.database().reference().child("users").child(uid).updateChildValues(values) { (err, ref) in
-                if let err = err {
-                    print("Failed to update username",err)
-                    return
+        saveProfileImageToStorage()
+        saveUsernameToDatabase()
+    }
+    func saveUsernameToDatabase() {
+            usernameTextField.resignFirstResponder()
+            loadingIndicator.startAnimating()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+                if self?.usernameTextField.text?.isEmpty ?? false {
+                    self?.navigationController?.popViewController(animated: true)
+
+                } else {
+                guard let usernameTxt = self?.usernameTextField.text else {return}
+            if usernameTxt.isEmpty {
+                self?.navigationItem.rightBarButtonItem?.isEnabled = false
+            }else {
+                let username = usernameTxt
+                guard let uid = Auth.auth().currentUser?.uid else {return}
+                let values = ["username":username]
+                Database.database().reference().child("users").child(uid).updateChildValues(values) { (err, ref) in
+                    if let err = err {
+                        print("Failed to update username",err)
+                        return
+                    }
+                    print("Successfully updated username")
+                    NotificationCenter.default.post(name: EditProfileController.updateUserData, object: nil)
                 }
-                print("Successfully updated username")
-                NotificationCenter.default.post(name: EditProfileController.updateUsername, object: nil)
+                    self?.navigationController?.popViewController(animated: true)
+                
             }
-                self?.navigationController?.popViewController(animated: true)
-            
+        }
+        }
+
+    }
+    func saveProfileImageToStorage() {
+            guard let image = self.profileImageView.imageView?.image else {return}
+            guard let uploadData = image.jpegData(compressionQuality: 0.3) else {return}
+            let filename = NSUUID().uuidString
+            Storage.storage().reference().child("profile_images").child(filename).putData(uploadData, metadata: nil) { (metaData, err) in
+                if let err = err {
+                    print("Failed to upload profile image",err)
+                    return
+                    
+                }
+                print("Successfully uploaded")
+                guard let userID = Auth.auth().currentUser?.uid else {return}
+                let storageImageRef = Storage.storage().reference().child("profile_images").child(filename)
+                storageImageRef.downloadURL { (url, err) in
+                    if let profileImageURL = url?.absoluteString {
+                        let dictionaryValues = ["profileImageURL":profileImageURL]
+                        Database.database().reference().child("users").child(userID).updateChildValues(dictionaryValues) { (err, ref) in
+                            if let err = err {
+                                print ("Failed",err)
+                                return
+                            }
+                            print("Successfully updated a user")
+                            NotificationCenter.default.post(name: EditProfileController.updateUserData, object: nil)
+    }
+                    }
+                }
         }
     }
-    }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         tabBarController?.tabBar.isHidden = true
